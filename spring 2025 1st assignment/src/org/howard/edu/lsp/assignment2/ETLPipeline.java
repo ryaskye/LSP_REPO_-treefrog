@@ -2,7 +2,7 @@ package org.howard.edu.lsp.assignment2;
 
 import java.io.*;
 import java.util.*;
-//got help for starter code from google https://www.google.com/search?q=example+code+of+how+to+read+a+csv+file+in+java&sca_esv=aed234037716436e&sxsrf=AHTn8zpC2OGr-N6lfZP2moo5sRvSB3Dyyg%3A1738975042636&ei=QqemZ-u_Jomf5NoP0vK--QE&ved=0ahUKEwjr6MHt6rKLAxWJD1kFHVK5Lx8Q4dUDCBA&uact=5&oq=example+code+of+how+to+read+a+csv+file+in+java&gs_lp=Egxnd3Mtd2l6LXNlcnAiLmV4YW1wbGUgY29kZSBvZiBob3cgdG8gcmVhZCBhIGNzdiBmaWxlIGluIGphdmEyCBAhGKABGMMESPEPUNcGWMMOcAJ4AZABAJgBiQGgAdMFqgEDMy40uAEDyAEA-AEBmAIIoAKMBcICChAAGLADGNYEGEfCAggQABiiBBiJBcICBRAAGO8FwgIIEAAYgAQYogTCAgoQIRigARjDBBgKmAMAiAYBkAYIkgcDNS4zoAfDHA&sclient=gws-wiz-serp
+//got help for starter code from google and chat gpt for debugging https://www.google.com/search?q=example+code+of+how+to+read+a+csv+file+in+java&sca_esv=aed234037716436e&sxsrf=AHTn8zpC2OGr-N6lfZP2moo5sRvSB3Dyyg%3A1738975042636&ei=QqemZ-u_Jomf5NoP0vK--QE&ved=0ahUKEwjr6MHt6rKLAxWJD1kFHVK5Lx8Q4dUDCBA&uact=5&oq=example+code+of+how+to+read+a+csv+file+in+java&gs_lp=Egxnd3Mtd2l6LXNlcnAiLmV4YW1wbGUgY29kZSBvZiBob3cgdG8gcmVhZCBhIGNzdiBmaWxlIGluIGphdmEyCBAhGKABGMMESPEPUNcGWMMOcAJ4AZABAJgBiQGgAdMFqgEDMy40uAEDyAEA-AEBmAIIoAKMBcICChAAGLADGNYEGEfCAggQABiiBBiJBcICBRAAGO8FwgIIEAAYgAQYogTCAgoQIRigARjDBBgKmAMAiAYBkAYIkgcDNS4zoAfDHA&sclient=gws-wiz-serp
 public class ETLPipeline {
     public static void main(String[] args) {
         System.out.println("Starting ETL pipeline..."); // Step 1: Debugging message
@@ -51,29 +51,29 @@ public class ETLPipeline {
                 double price = Double.parseDouble(parts[2]);
                 String category = parts[3];
 
-                // Apply discount to Electronics
+                // discount
                 if (category.equals("Electronics")) {
                     price *= 0.90;
                     price = Math.round(price * 100.0) / 100.0; // Round to 2 decimal places
                 }
 
-                // Change category for expensive electronics
+                // Change category for electronics
                 if (category.equals("Electronics") && price > 500) {
                     category = "Premium Electronics";
                 }
 
-                // Determine Price Range
+                // For Price Range
                 String priceRange;
                 if (price <= 10) priceRange = "Low";
                 else if (price <= 100) priceRange = "Medium";
                 else if (price <= 500) priceRange = "High";
                 else priceRange = "Premium";
 
-                // Add transformed data
+                
                 transformedData.add(new String[]{String.valueOf(productId), name, String.valueOf(price), category, priceRange});
             }
 
-            // Write output CSV file
+            //  Output CSV file
             try (BufferedWriter bw = new BufferedWriter(new FileWriter(outputFilePath))) {
                 for (String[] row : transformedData) {
                     bw.write(String.join(",", row));
